@@ -119,7 +119,7 @@ keycloak:
   volumeSize: 1Gi
   # Unless you uncomment following line and set class, persistent volume claim is created
   # with no storage class and relies on cluster default one.
-  storageClassName: mkp-local
+  storageClassName: postgres-lc
   postgresImage: centos/postgresql-95-centos7:latest
   username: userP
   # Unless you uncomment following line, admin password will be randomly generated.
