@@ -2,7 +2,7 @@ appName: microcks
 ingresses: false
 
 microcks:
-  url: microcks.k8.it-invest.rshbintech.ru
+  url: microcks2.k8.it-invest.rshbintech.ru
   #url: microcks-microcks.192.168.64.6.nip.io
   #ingressSecretRef: my-secret-for-microcks-ingress
   #ingressAnnotations:
@@ -80,7 +80,7 @@ keycloak:
   realm: microcks
   # Now that we switched to newer version of Keycloak-X, default url does not contain '/auth' path
   # If you use an older external Keycloak instance, url must include the '/auth' path
-  url: keycloak.k8.it-invest.rshbintech.ru
+  url: keycloak2.k8.it-invest.rshbintech.ru
   #privateUrl: http://microcks-keycloak.microcks.svc.cluster.local:8080
   #ingressSecretRef: my-secret-for-keycloak-ingress
   #ingressAnnotations:
