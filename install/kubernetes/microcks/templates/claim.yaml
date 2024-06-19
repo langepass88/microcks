@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "{{ .Values.appName }}-keycloak-postgresql"
+  name: "pv-{{ .Values.appName }}-keycloak-postgresql"
 spec:
   capacity:
     storage: {{ .Values.keycloak.volumeSize }}
