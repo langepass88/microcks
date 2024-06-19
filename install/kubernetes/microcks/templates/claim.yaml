@@ -26,6 +26,30 @@ spec:
 {{- end }}
 {{- if and .Values.keycloak.enabled .Values.keycloak.install .Values.keycloak.persistent }}
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "{{ .Values.appName }}-keycloak-postgresql"
+spec:
+  capacity:
+    storage: {{ .Values.keycloak.volumeSize }}
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  {{- if hasKey .Values.keycloak "storageClassName" }}
+  storageClassName: {{ .Values.keycloak.storageClassName }}
+  local:
+    path: /mnt/local-storage
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ips-dev3
+  {{- end }}
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -48,15 +72,5 @@ spec:
       storage: {{ .Values.keycloak.volumeSize }}
   {{- if hasKey .Values.keycloak "storageClassName" }}
   storageClassName: {{ .Values.keycloak.storageClassName }}
-  local:
-    path: /mnt/local-storage
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - ips-dev3
   {{- end }}
 {{- end }}
