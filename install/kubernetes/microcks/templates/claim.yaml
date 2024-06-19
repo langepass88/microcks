@@ -48,5 +48,15 @@ spec:
       storage: {{ .Values.keycloak.volumeSize }}
   {{- if hasKey .Values.keycloak "storageClassName" }}
   storageClassName: {{ .Values.keycloak.storageClassName }}
+  local:
+    path: /data/volumes/pv1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ips-dev3
   {{- end }}
 {{- end }}
