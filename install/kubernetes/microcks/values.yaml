@@ -1,5 +1,5 @@
 appName: microcks
-ingresses: true
+ingresses: false
 
 microcks:
   url: microcks.k8.it-invest.rshbintech.ru
@@ -80,7 +80,7 @@ keycloak:
   realm: microcks
   # Now that we switched to newer version of Keycloak-X, default url does not contain '/auth' path
   # If you use an older external Keycloak instance, url must include the '/auth' path
-  url: keycloak-microcks.k8.it-invest.rshbintech.ru
+  url: keycloak.k8.it-invest.rshbintech.ru
   #privateUrl: http://microcks-keycloak.microcks.svc.cluster.local:8080
   #ingressSecretRef: my-secret-for-keycloak-ingress
   #ingressAnnotations:
@@ -119,7 +119,7 @@ keycloak:
   volumeSize: 1Gi
   # Unless you uncomment following line and set class, persistent volume claim is created
   # with no storage class and relies on cluster default one.
-  storageClassName: csi-s3
+  storageClassName: mkp-local
   postgresImage: centos/postgresql-95-centos7:latest
   username: userP
   # Unless you uncomment following line, admin password will be randomly generated.
@@ -139,7 +139,7 @@ mongodb:
   volumeSize: 2Gi
   # Unless you uncomment following line and set class, persistent volume claim is created
   # with no storage class and relies on cluster default one.
-  storageClassName: csi-s3
+  storageClassName: csi-s3-mongo
 
   username: userM
   # Unless you uncomment following line, admin password will be randomly generated.
