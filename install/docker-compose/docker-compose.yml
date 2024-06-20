@@ -15,12 +15,18 @@ services:
     environment:
       KEYCLOAK_ADMIN: "admin"
       KEYCLOAK_ADMIN_PASSWORD: "admin"
-      KC_HOSTNAME_ADMIN_URL: "http://10.30.176.43:18080"
-      KC_HOSTNAME_URL: "http://10.30.176.43:18080"
+      KC_HOSTNAME_ADMIN_URL: "https://keycloak.it-invest.rshbintech.ru"
+      KC_HOSTNAME_URL: "https://keycloak.it-invest.rshbintech.ru"
     volumes:
       - "./keycloak-realm/microcks-realm-sample.json:/opt/keycloak/data/import/microcks-realm.json"
     command:
       - start-dev --import-realm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=18080"
+      - "traefik.http.routers.keycloak.entrypoints=websecure"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak.it-invest.rshbintech.ru`)"
+      - "traefik.http.routers.backstage.tls=true"
 
   postman:
     image: quay.io/microcks/microcks-postman-runtime:latest
@@ -44,6 +50,12 @@ services:
       - TEST_CALLBACK_URL=http://microcks:8080
       - SERVICES_UPDATE_INTERVAL=0 0 0/2 * * *
       - KEYCLOAK_URL=http://keycloak:8080
-      - KEYCLOAK_PUBLIC_URL=http://10.30.176.43:18080
-      - JAVA_OPTIONS=-Dspring.security.oauth2.resourceserver.jwt.issuer-uri=http://10.30.176.43:18080/realms/microcks -Dspring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://keycloak:8080/realms/microcks/protocol/openid-connect/certs
+      - KEYCLOAK_PUBLIC_URL=https://keycloak.it-invest.rshbintech.ru
+      - JAVA_OPTIONS=-Dspring.security.oauth2.resourceserver.jwt.issuer-uri=https://keycloak.it-invest.rshbintech.ru/realms/microcks -Dspring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://keycloak:8080/realms/microcks/protocol/openid-connect/certs
       #- MAX_UPLOAD_FILE_SIZE=3MB
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.app.loadbalancer.server.port=8080"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.rule=Host(`microcks.it-invest.rshbintech.ru`)"
+      - "traefik.http.routers.app.tls=true"
