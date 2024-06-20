@@ -30,7 +30,7 @@ services:
       - "traefik.http.services.keycloak.loadbalancer.server.port=18080"
       - "traefik.http.routers.keycloak.entrypoints=websecure"
       - "traefik.http.routers.keycloak.rule=Host(`keycloak.it-invest.rshbintech.ru`)"
-      - "traefik.http.routers.backstage.tls=true"
+      - "traefik.http.routers.keycloak.tls=true"
 
   postman:
     image: quay.io/microcks/microcks-postman-runtime:latest
