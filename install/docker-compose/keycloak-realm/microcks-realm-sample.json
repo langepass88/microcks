@@ -95,7 +95,7 @@
       "enabled": true,
       "publicClient": true,
       "redirectUris": [
-        "http://localhost:8080/*"
+        "http://10.30.176.43:8080/*"
       ],
       "webOrigins": [
         "+"
