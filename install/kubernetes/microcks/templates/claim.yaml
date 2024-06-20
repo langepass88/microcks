@@ -26,33 +26,6 @@ spec:
 {{- end }}
 {{- if and .Values.keycloak.enabled .Values.keycloak.install .Values.keycloak.persistent }}
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: "pv-{{ .Values.appName }}-keycloak-postgresql"
-spec:
-  capacity:
-    storage: {{ .Values.keycloak.volumeSize }}
-  local:
-    path: /mnt/local-storage
-  accessModes:
-  - ReadWriteOnce
-  claimRef:
-    kind: PersistentVolumeClaim
-    namespace: microcks
-    name: "{{ .Values.appName }}-keycloak-postgresql"
-  persistentVolumeReclaimPolicy: Delete
-  storageClassName: postgres-lc
-  volumeMode: Filesystem
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - ips-dev3
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
