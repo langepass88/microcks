@@ -35,7 +35,7 @@ spec:
     storage: {{ .Values.keycloak.volumeSize }}
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Retain
   {{- if hasKey .Values.keycloak "storageClassName" }}
   storageClassName: {{ .Values.keycloak.storageClassName }}
   local:
