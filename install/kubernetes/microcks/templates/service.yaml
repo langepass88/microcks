@@ -9,6 +9,7 @@ metadata:
     {{- include "microcks-common-labels" . | nindent 4 }}
   annotations:
     {{- include "microcks-common-annotations" . | nindent 4 }}
+
 spec:
   ports:
   - protocol: TCP
@@ -21,10 +22,6 @@ spec:
     app: "{{ .Values.appName }}"
     container: spring
     group: microcks
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 ---
 kind: Service
 apiVersion: v1
@@ -49,10 +46,6 @@ spec:
     app: "{{ .Values.appName }}"
     container: spring
     group: microcks
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 ---
 kind: Service
 apiVersion: v1
@@ -77,10 +70,6 @@ spec:
     app: "{{ .Values.appName }}"
     container: postman-runtime
     group: microcks
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 {{- if and .Values.mongodb.install }}
 ---
 kind: Service
@@ -107,10 +96,6 @@ spec:
     group: microcks
   type: ClusterIP
   sessionAffinity: None
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 {{- end }}
 {{- if and .Values.keycloak.enabled .Values.keycloak.install }}
 ---
@@ -133,10 +118,6 @@ spec:
     name: keycloak
   type: {{ .Values.keycloak.serviceType | default "ClusterIP" | quote }}
   sessionAffinity: None
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
   selector:
     app: "{{ .Values.appName }}"
     container: keycloak
@@ -166,10 +147,6 @@ spec:
     app: "{{ .Values.appName }}"
     container: keycloak-postgresql
     group: microcks
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
 {{- end }}
 {{- if and .Values.features.async.enabled }}
 ---
@@ -184,6 +161,7 @@ metadata:
     {{- include "microcks-common-labels" . | nindent 4 }}
   annotations:
     {{- include "microcks-common-annotations" . | nindent 4 }}
+    
 spec:
   ports:
     - protocol: TCP
@@ -192,10 +170,6 @@ spec:
       name: async-minion
   type: ClusterIP
   sessionAffinity: None
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  internalTrafficPolicy: Cluster
   selector:
     app: "{{ .Values.appName }}"
     container: async-minion
