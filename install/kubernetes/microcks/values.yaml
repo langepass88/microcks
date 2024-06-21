@@ -94,7 +94,7 @@ keycloak:
   adminUsername: admin
   # Unless you uncomment following line, admin password will be randomly generated.
   # Beware that in case of update, new value will be generated and
-  #adminPassword: 123
+  adminPassword: 123
 
   # Or you can uncomment secretRef block if credentials are provided through a Secret.
   #secretRef:
