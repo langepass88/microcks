@@ -1,5 +1,5 @@
 appName: microcks
-ingresses: true
+ingresses: false
 
 microcks:
   url: microcks2.k8.it-invest.rshbintech.ru
